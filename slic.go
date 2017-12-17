@@ -5,7 +5,7 @@ import (
 	"reflect"
 )
 
-func Slice2Interface(arg interface{}) []interface{} {
+func SliceToInf(arg interface{}) []interface{} {
 	slice := reflect.ValueOf(arg)
 	if slice.Kind() != reflect.Slice {
 		panic(errors.New("bad slice"))
