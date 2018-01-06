@@ -1,6 +1,7 @@
 package gutil
 
 import (
+	"fmt"
 	"net/url"
 	"strings"
 )
@@ -25,5 +26,16 @@ func NewSortQuery(values url.Values, defaultDesc bool, fieldFn func(sortName str
 			sortQuery.Desc = true
 		}
 	}
+	if sortQuery.Field == "" {
+		return nil
+	}
 	return sortQuery
+}
+
+func (sort *SortQuery) ToString() string {
+	if sort.Desc {
+		return fmt.Sprintf("%s %s", sort.Field, "DESC NULLS LAST")
+	} else {
+		return fmt.Sprintf("%s %s", sort.Field, "ASC NULLS FIRST")
+	}
 }
