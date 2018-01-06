@@ -6,24 +6,23 @@ import (
 )
 
 type SortQuery struct {
-	Sort  string
-	Order string
+	Field string
+	Desc  bool
 }
 
-func NewSortQuery(values url.Values, allowSorts []string) *SortQuery {
+func NewSortQuery(values url.Values, defaultDesc bool, fieldFn func(sortName string) string) *SortQuery {
 	sortQuery := &SortQuery{}
 	if sortFields, ok := values["sort"]; ok {
-		for _, item := range allowSorts {
-			if strings.ToLower(sortFields[0]) == strings.ToLower(item) {
-				sortQuery.Sort = strings.ToLower(sortFields[0])
-				break
-			}
+		if fieldFn != nil {
+			sortQuery.Field = fieldFn(sortFields[0])
+		} else {
+			sortQuery.Field = sortFields[0]
 		}
 	}
-	sortQuery.Order = "ASC"
+	sortQuery.Desc = defaultDesc
 	if orderFields, ok := values["order"]; ok {
 		if strings.ToUpper(orderFields[0]) == "DESC" {
-			sortQuery.Order = "DESC"
+			sortQuery.Desc = true
 		}
 	}
 	return sortQuery
