@@ -17,3 +17,16 @@ func SliceToInf(arg interface{}) []interface{} {
 	}
 	return result
 }
+
+func MapToInf(arg interface{}) map[interface{}]interface{} {
+	m := reflect.ValueOf(arg)
+	if m.Kind() != reflect.Map {
+		panic(errors.New("bad map"))
+	}
+	result := make(map[interface{}]interface{})
+	for _, k := range m.MapKeys() {
+		v := m.MapIndex(k).Interface()
+		result[k.Interface()] = v
+	}
+	return result
+}
