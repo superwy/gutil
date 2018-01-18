@@ -39,19 +39,20 @@ func maskJsonItem(val interface{}, keys []string) {
 	}
 }
 
-func MaskJsonWithKeys(inf interface{}, maskKeys []string) error {
+func MaskJsonWithKeys(inf interface{}, maskKeys []string) (interface{}, error) {
 	bytJson, err := json.Marshal(inf)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	var jsonMap interface{}
-	err = json.Unmarshal(bytJson, &jsonMap)
+	var result interface{}
+	err = json.Unmarshal(bytJson, &result)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	for _, item := range maskKeys {
 		keys := strings.Split(item, ".")
-		maskJsonItem(jsonMap, keys)
+		maskJsonItem(result, keys)
+
 	}
-	return nil
+	return result, nil
 }
