@@ -24,6 +24,8 @@ func NewSortQuery(values url.Values, defaultDesc bool, fieldFn func(sortName str
 	if orderFields, ok := values["order"]; ok {
 		if strings.ToUpper(orderFields[0]) == "DESC" {
 			sortQuery.Desc = true
+		} else if strings.ToUpper(orderFields[0]) == "ASC" {
+			sortQuery.Desc = false
 		}
 	}
 	if sortQuery.Field == "" {
