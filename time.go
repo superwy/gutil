@@ -12,6 +12,9 @@ func TickParse(layout, value string) (int64, error) {
 		if err != nil {
 			return 0, err
 		}
+		if tm.IsZero() {
+			return 0, errors.New("zero time")
+		}
 		return tm.UnixNano() / 1e6, nil
 	}
 	return 0, errors.New("empty value")
