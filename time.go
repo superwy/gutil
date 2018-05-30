@@ -20,14 +20,14 @@ func TickParse(layout, value string) (int64, error) {
 	return 0, errors.New("empty value")
 }
 
-func TickDayNow() (tick int64) {
+func TickNowFirst() (tick int64) {
 	layout := "2006-01-02"
 	strDate := time.Now().Format(layout)
 	tick, _ = TickParse(layout, strDate)
 	return
 }
 
-func TickDayLast() (tick int64) {
+func TickNowLast() (tick int64) {
 	layout := "2006-01-02"
 	strDate := time.Now().Format(layout)
 	tm, _ := time.ParseInLocation(layout, strDate, time.Local)
