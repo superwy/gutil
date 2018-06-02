@@ -41,3 +41,9 @@ func TickNowLast() (tick int64) {
 func TickNow() int64 {
 	return time.Now().UnixNano() / 1e6
 }
+
+func IsCurrentMonth(tick int64) bool {
+	now := time.Now()
+	tm := time.Unix(tick/1e3, 0)
+	return tm.Year() == now.Year() && tm.Month() == now.Month()
+}
