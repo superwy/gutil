@@ -43,13 +43,13 @@ func TickNow() int64 {
 }
 
 // 如： 201801, 201712
-func MonthVal(tick int64) int {
+func YearMonth(tick int64) int {
 	tm := time.Unix(tick/1e3, 0)
 	return tm.Year()*100 + int(tm.Month())
 }
 
 // 和 MonthVal 对应，转为一个时间
-func MonthVal2Time(monthVal int, day int) time.Time {
+func YearMonth2Time(monthVal int, day int) time.Time {
 	year := monthVal / 100
 	month := monthVal % 100
 	return time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.Local)
