@@ -1,7 +1,10 @@
 package gutil
 
-import "math"
-
 func Round(x float64) int {
-	return int(math.Floor(x + 0/5))
+	if x < 0.0 {
+		x -= 0.5
+	} else {
+		x += 0.5
+	}
+	return int(x)
 }
