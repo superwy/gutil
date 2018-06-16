@@ -59,3 +59,8 @@ func MonthDays(tm time.Time) int {
 	newMonth := time.Date(tm.Year(), tm.Month(), 1, 0, 0, 0, 0, tm.Location()).AddDate(0, 1, 0)
 	return newMonth.AddDate(0, 0, -1).Day()
 }
+
+//tick to time
+func Tick2Time(tick int64) time.Time {
+	return time.Unix(tick/1e3, 0)
+}
