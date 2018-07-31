@@ -9,8 +9,8 @@ func RunAsyncWorker(fnWorkers ...func() error) (err error) {
 	var wg sync.WaitGroup
 	var mu sync.Mutex
 	wg.Add(len(fnWorkers))
-	for _, itemWork := range fnWorkers {
-		go func() {
+	for _, fnItemWork := range fnWorkers {
+		go func(itemWork func() error) {
 			defer wg.Done()
 			if err != nil {
 				return
@@ -24,7 +24,7 @@ func RunAsyncWorker(fnWorkers ...func() error) (err error) {
 					return
 				}()
 			}
-		}()
+		}(fnItemWork)
 	}
 	wg.Wait()
 	return
